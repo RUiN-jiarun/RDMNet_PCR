@@ -24,6 +24,8 @@ def inject_default_parser(parser=None):
     parser.add_argument('--test_epoch', type=int, default=None, help='test epoch')
     parser.add_argument('--test_iter', type=int, default=None, help='test iteration')
     parser.add_argument('--local_rank', type=int, default=-1, help='local rank for ddp')
+    parser.add_argument('--src_path', type=str, default=None, help='for infer only: src pcd path')
+    parser.add_argument('--ref_path', type=str, default=None, help='for infer only: ref pcd path')
     return parser
 
 

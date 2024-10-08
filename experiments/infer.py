@@ -40,7 +40,9 @@ class Tester(SingleTester):
 
         # preparation
         self.output_dir = osp.join(cfg.feature_dir)
+        self.result_dir = osp.join(cfg.output_dir)
         ensure_dir(self.output_dir)
+        ensure_dir(self.result_dir)
 
     def test_step(self, iteration, data_dict):
         data_dict['testing'] = True
@@ -69,12 +71,13 @@ class Tester(SingleTester):
         src_frame = data_dict['src_frame']
 
 
-        f = open(osp.join(self.output_dir, '%02d_pose'%seq_id),'a')
+        f = open(osp.join(self.result_dir, '%02d_pose.txt'%seq_id),'a')
 
         estimated_transform=release_cuda(output_dict['estimated_transform'])
         M2=estimated_transform.reshape(-1)[:12]
 
         f.write(f'{ref_frame} {src_frame} {M2[0]:.6f} {M2[1]:.6f} {M2[2]:.6f} {M2[3]:.6f} {M2[4]:.6f} {M2[5]:.6f} {M2[6]:.6f} {M2[7]:.6f} {M2[8]:.6f} {M2[9]:.6f} {M2[10]:.6f} {M2[11]:.6f} \n')
+        
 
         from geotransformer.utils.open3d import registration_with_ransac_from_correspondences
         est_transform = registration_with_ransac_from_correspondences(
@@ -124,7 +127,7 @@ def main():
         cfg.Vote.inference_use_vote = False
 
 
-    snapshots='../weights/rdmnet.pth.tar'
+    snapshots='./output/experiments/snapshots/epoch-29.pth.tar'
     tester = Tester(cfg)
     tester.run(snapshots)
 

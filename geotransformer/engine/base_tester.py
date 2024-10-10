@@ -97,7 +97,7 @@ class BaseTester(abc.ABC):
         # self.evaluating = False
 
     def load_snapshot(self, snapshot):
-        self.logger.info('Loading from "{}".'.format(snapshot))
+        print('Loading from "{}".'.format(snapshot))
         state_dict = torch.load(snapshot, map_location=torch.device('cpu'))
         assert 'model' in state_dict, 'No model can be loaded.'
         
@@ -106,7 +106,7 @@ class BaseTester(abc.ABC):
             model_dict = OrderedDict([('module.' + key, value) for key, value in model_dict.items()])
         
         self.model.load_state_dict(model_dict, strict=True)
-        self.logger.info('Model has been loaded.')
+        print('Model has been loaded.')
 
     def register_model(self, model):
         r"""Register model. DDP is automatically used."""

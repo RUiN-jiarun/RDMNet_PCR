@@ -1,4 +1,5 @@
 import os.path as osp
+import open3d as o3d
 import numpy as np
 import torch
 import argparse
@@ -66,6 +67,7 @@ class Exec(SingleTester):
         self.data_dict = move_tensors_to_cuda(self.data_dict)
         # model
         self.model = create_model(cfg).cuda()
+        self.load_snapshot(self.args.snapshot)
         self.model.training = False
         self.register_model(self.model)
 

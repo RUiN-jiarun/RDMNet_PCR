@@ -9,6 +9,7 @@ python setup.py develop
 
 # 测试方法
 ```sh
-python experiments/exec.py --src_path ../data/training_data/zhongtai/pairs_data/downsampled/A1-016-2024-03-08-14-25-16_3189.npy \
-                           --ref_path ../data/training_data/zhongtai/pairs_data/downsampled/A1-016-2024-04-09-13-16-17_12081.npy
+python experiments/exec.py --src_path example_data/A1-016-2024-03-08-14-25-16_3189.npy \
+                           --ref_path example_data/A1-016-2024-04-09-13-16-17_12081.npy \
+                           --snapshot weights/epoch-29.pth.tar
 ```
